@@ -1,0 +1,41 @@
+Compilation
+===========
+
+Compilation works backwards. Most tokens are just converted to P-Codes. 
+
+The following are different.
+
+) and ]
+		wrap constants, strings, identifiers outputting them in either
+		byte or word mode, until a matching [ or ( was found.
+
+,
+		ignored
+
+"xxx"	
+		code generated in the same way as strings (length + text), prefixed
+		by the string-push P-Code.
+
+:
+		look what precedes it. 
+		-	If it is an identifier, set the identifier to the current PC.						
+		-	If it is a constant, copy PC to BackPC, and set PC to constant
+		- 	If neither, then BackPC to copied to PC		
+
+End		
+		push end address on stack
+
+Else
+		pop the end address, code branch <there>
+		push the address back on.
+
+If
+		pop the target address, code branch zero <there>
+
+Extra tokens
+
+61 xx xx 	Branch 				
+62 xx xx 	Branch if TOS = 0
+63 xx xx 	16 bit push
+64-127 		Push-6
+128-255 xx 	Push-15

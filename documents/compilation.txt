@@ -8,8 +8,10 @@ The following are different.
 ) and ]
 		wrap constants, strings, identifiers outputting them in either
 		byte or word mode, until a matching [ or ( was found.
+		Done by setting a 'mode' value - so 0 is push, 1 compile byte,
+		2 compile word.
 
-,
+, 		(comma and space)
 		ignored
 
 "xxx"	
@@ -22,6 +24,12 @@ The following are different.
 		-	If it is a constant, copy PC to BackPC, and set PC to constant
 		- 	If neither, then BackPC to copied to PC		
 
+identifier
+		code to push the address of the identifier on the stack.
+
+constant
+		code to push the constant onto the stack.
+
 End		
 		push end address on stack
 
@@ -32,10 +40,12 @@ Else
 If
 		pop the target address, code branch zero <there>
 
-Extra tokens
 
+Extra tokens
+============
 61 xx xx 	Branch 				
 62 xx xx 	Branch if TOS = 0
 63 xx xx 	16 bit push
 64-127 		Push-6
 128-255 xx 	Push-15
+
